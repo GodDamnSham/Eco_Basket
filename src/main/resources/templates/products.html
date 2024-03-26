@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>products</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        li:hover {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    {#if erg.isEmpty}
+        <p>keine Produkte verfügbar! </p>
+    {#else}
+        <ul>
+            {#for item in erg}
+                <li>
+                    <strong>{item.name}</strong> - Euro {item.preis}
+                </li>
+            {/for}
+        </ul>
+    {/if}
+</body>
+
+</html>
+

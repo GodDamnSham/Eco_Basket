@@ -1,0 +1,173 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog
+    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet author="Finn" id="startup-schema">
+        <createTable tableName="KUNDE">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="vorname" type="VARCHAR(255)"/>
+            <column name="nachname" type="VARCHAR(255)"/>
+            <column name="username" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="enabled" type="BOOLEAN"/>
+            <column name="adresse_id" type="UUID"/>
+        </createTable>
+        <createTable tableName="SORTIMENT">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="preis" type="FLOAT"/>
+        </createTable>
+        <createTable tableName="ADRESSE">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="plz" type="VARCHAR(255)"/>
+            <column name="ort" type="VARCHAR(255)"/>
+            <column name="strasse" type="VARCHAR(255)"/>
+            <column name="hausnummer" type="VARCHAR(255)"/>
+        </createTable>
+        <createTable tableName="LAGER">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="ort" type="VARCHAR(255)"/>
+        </createTable>
+        <createTable tableName="WARENKORB">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="kunden_id" type="VARCHAR(255)" >
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="POSITION">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="sortiment_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="anzahlsortiment" type="INTEGER"/>
+        </createTable>
+        <createTable tableName="WARENKORB_POSITION">
+            <column name="warenkorb_id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="position_id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+        <createTable tableName="BESTAND">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="sortiment_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="anzahlsortiment" type="INTEGER"/>
+        </createTable>
+        <createTable tableName="LAGER_BESTAND">
+            <column name="lager_id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="bestand_id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Finn" id="insert-data">
+        <insert tableName="SORTIMENT">
+		    <column name="id" value="8f79851c-dd86-49c8-906d-0fada4e1d98e" />
+		    <column name="preis" value="4.09" />
+		    <column name="name" value="Haribo" />
+	    </insert>
+        <insert tableName="SORTIMENT">
+		    <column name="id" value="8f79851c-dd86-49c8-906d-1fada4e1d98e" />
+		    <column name="preis" value="10.99" />
+		    <column name="name" value="Pfanne" />
+	    </insert>
+        <insert tableName="SORTIMENT">
+		    <column name="id" value="8f79851c-dd86-49c8-906d-2fada4e1d98e" />
+		    <column name="preis" value="0.99" />
+		    <column name="name" value="Butter" />
+	    </insert>
+
+        <insert tableName="LAGER">
+		    <column name="id" value="8f79851c-aa86-49c8-906d-0fada4e1d98e" />
+		    <column name="ort" value="Hamburg" />
+	    </insert>
+        <insert tableName="LAGER">
+		    <column name="id" value="8f79851c-aa86-49c8-906d-1fada4e1d98e" />
+		    <column name="ort" value="München" />
+	    </insert>
+        <insert tableName="LAGER">
+		    <column name="id" value="8f79851c-aa86-49c8-906d-2fada4e1d98e" />
+		    <column name="ort" value="Berlin" />
+	    </insert>
+
+        <insert tableName="BESTAND">
+		    <column name="id" value="8f79851c-ff86-49c8-906d-0fada4e1d98e" />
+            <column name="sortiment_id" value="8f79851c-dd86-49c8-906d-0fada4e1d98e" />
+		    <column name="anzahlsortiment" value="5" />
+	    </insert>
+        <insert tableName="BESTAND">
+		    <column name="id" value="8f79851c-ff86-49c8-906d-1fada4e1d98e" />
+            <column name="sortiment_id" value="8f79851c-dd86-49c8-906d-0fada4e1d98e" />
+		    <column name="anzahlsortiment" value="10" />
+	    </insert>
+        <insert tableName="BESTAND">
+		    <column name="id" value="8f79851c-ff86-49c8-906d-2fada4e1d98e" />
+            <column name="sortiment_id" value="8f79851c-dd86-49c8-906d-1fada4e1d98e" />
+		    <column name="anzahlsortiment" value="5" />
+	    </insert>
+
+        <insert tableName="LAGER_BESTAND">
+		    <column name="lager_id" value="8f79851c-aa86-49c8-906d-0fada4e1d98e" />
+            <column name="bestand_id" value="8f79851c-ff86-49c8-906d-2fada4e1d98e" />
+	    </insert>
+        <insert tableName="LAGER_BESTAND">
+		    <column name="lager_id" value="8f79851c-aa86-49c8-906d-1fada4e1d98e" />
+            <column name="bestand_id" value="8f79851c-ff86-49c8-906d-0fada4e1d98e" />
+	    </insert>
+        <insert tableName="LAGER_BESTAND">
+		    <column name="lager_id" value="8f79851c-aa86-49c8-906d-0fada4e1d98e" />
+            <column name="bestand_id" value="8f79851c-ff86-49c8-906d-1fada4e1d98e" />
+	    </insert>
+    </changeSet>
+    <!--<changeSet author="finn" id="Information-Sortiment">
+        <addColumn schemaName= "public"
+        tableName="SORTIMENT">
+        <column name="Info"
+            type="varchar(255)"/>
+    </addColumn>
+    </changeSet>
+    <changeSet author="finn" id="Information-Sortiment-drop">
+        <dropColumn schemaName= "public"
+        tableName="SORTIMENT">
+        <column name="Info"/>
+    </dropColumn>
+    </changeSet>
+    <changeSet author="finn" id="Information-Sortiment-create1">
+        <addColumn schemaName= "public"
+        tableName="SORTIMENT">
+        <column name="Info"
+            type="varchar(255)"/>
+    </addColumn>
+    </changeSet>
+    <changeSet author="finn" id="Information-Sortiment-drop1">
+        <dropColumn schemaName= "public"
+        tableName="SORTIMENT">
+        <column name="Info"/>
+    </dropColumn>
+    </changeSet>-->
+</databaseChangeLog>
